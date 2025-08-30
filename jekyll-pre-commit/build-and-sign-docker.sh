@@ -6,7 +6,7 @@
 DKIC_SIGNER_PATH=../dkic/signer
 
 echo "Building HTML pages..."
-jekyll build
+bundle exec jekyll build
 
 # Select all changed .html files under _site (AM = added, modified)
 # Set IFS to newline only to handle spaces in filenames
