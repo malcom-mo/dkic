@@ -105,7 +105,7 @@ fn sign_files(
         fs::read_to_string(key_file)?
     } else {
         env::var("DKIC_PRIVATE_KEY").map_err(
-            |_| "No private key file specified and MYTOOL_PRIVATE_KEY environment variable not set",
+            |_| "No private key file specified and DKIC_PRIVATE_KEY environment variable not set",
         )?
     };
     let private_key = SigningKey::from_pkcs8_pem(&private_key_pem)?;
