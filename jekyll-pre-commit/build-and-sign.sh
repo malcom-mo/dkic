@@ -26,4 +26,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+git add _site
+
 exit 0
