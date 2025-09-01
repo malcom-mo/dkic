@@ -4,7 +4,7 @@ But as [academic](https://web.archive.org/web/20170108145246id_/http://www.cs.um
 
 These providers trivially have the power to do man-in-the-middle attacks.
 
-This repo showcases a system to prevent such attacks.
+This repository showcases a system to prevent such attacks.
 Partially (re-)implementing a [CCS 2022 paper](https://arxiv.org/pdf/2209.01541), it consists of
 1. a tool to sign HTML pages using a separate long-term key,
 2. a browser extension to verify HTML pages against the domain owner's long-term key.
@@ -34,7 +34,7 @@ To test out the extension (tested in Chrome, Brave and Firefox):
         3. Select "Load unpacked" and choose the `verifier` directory in the cloned repo
     - Firefox:
         1. Open `about:debugging#/runtime/this-firefox`
-        2. Select "Load Temporary Add-on..." and choose any file in the `verifier` directory in the cloned repo
+        2. Select "Load Temporary Add-on..." and choose any file in the `verifier` directory in the cloned repository
 3. Navigate to any website and open the extension to verify a DKIC signature (eg, https://mal.com.de)
 
 DNS queries are made using a DNS-over-HTTPS (DoH) service that can be configured in the extension's settings.
@@ -83,9 +83,9 @@ Here are two options to integrate DKIC signing with Jekyll, the static HTML gene
 The `jekyll` directory contains a script that signs pages built locally with Jekyll.
 The idea is to install `build-and-sign.sh` as a git pre-commit hook.
 ```
-cat <dkic repo>/jekyll/build-and-sign.sh >> <your repo>/.git/hook/pre-commit
+cat [dkic repo]/jekyll/build-and-sign.sh >> [your website repo]/.git/hook/pre-commit
 ```
-The script currently expects the private key to be in a `.dkic` directory in the repo.
+The script currently expects the private key to be in a `.dkic` directory in repository's root directory.
 In that case, be sure not to upload the key to Github:
 ```
 echo .dkic >> .gitignore
@@ -94,12 +94,12 @@ echo .dkic >> .gitignore
 Then, Markdown files are edited, `git add`ed and committed as usual.
 Due to the hook script, the pages uploaded to Github will have been signed automatically.
 
-Deploying to Github Pages can be done with the Github Actions workflow in `jekyll/workflow.yml` -- which differs from the standard Actions workflow for Jekyll in only that it does not build the site.
+Deploying to Github Pages can be done with the [standard Github Actions workflow](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow) for deploying static HTML (see also `jekyll/workflow.yml`).
 
-Note that running `jekyll build` as part of the pre-commit script might take an annoyingly long time.
+Note that running `jekyll build` as part of the pre-commit script might take a while.
 
 #### Option B: letting the CI runner sign
 
-Alternatively, it would be straightforward to create a CI workflow to sign the generated HTML on the CI server instead of doing it locally.
+Alternatively, it would be straightforward to create a CI workflow to sign the generated HTML on a remote CI server instead of doing it locally.
 However, then the key needs to be there, too -- eg, as a [secret](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets) when using Github Actions.
-(If the site is hosted *by Github*, ie, if the threat model is that Github would MITM you, then doing this with Github Actions would not make sense.)
+(Though if the site is hosted *by Github*, ie, if the threat model is that Github would MITM you, then doing this with Github Actions would not make so much sense.)
