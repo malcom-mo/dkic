@@ -44,7 +44,7 @@ Currently, only endpoints that support a Google-style JSON API are supported.
 ## Signer - for static HTML pages
 `dkic-signer` is a small command-line tool that can generate keys and sign HTML pages.
 It inserts the following into a page's `<head>`:
-```json
+```html
 <script type="application/json" id="dkic-signature">
 {
     "alg": "ed25519",
