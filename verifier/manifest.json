@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "DKIC Verifier",
+  "version": "1.0",
+  "description": "Verifies DKIC signatures using Ed25519 public keys from DNS TXT records",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://mozilla.cloudflare-dns.com/dns-query*",
+    "https://dns.google/resolve*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Verify DKIC Signature"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["ed25519.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
