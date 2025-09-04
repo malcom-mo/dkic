@@ -225,7 +225,7 @@ async function verifyHtmlSignature(dohUrl) {
     
     if (isValid) {
       console.log('✅ Signature verification successful!');
-      return { success: true, domain };
+      return { success: true, domain, htmlContent };
     } else {
       throw new Error('Signature verification failed - signature does not match content');
     }

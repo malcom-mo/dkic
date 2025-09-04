@@ -46,7 +46,18 @@ document.addEventListener('DOMContentLoaded', function() {
       // Send message to content script
       const response = await chrome.tabs.sendMessage(tab.id, { action: 'verifySignature', dohUrl: chosenUrl });
       
-      if (response.success) {
+      if (response.success && response.htmlContent) {
+        await chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            func: (html) => {
+                document.open();
+                document.write(html);
+                document.close();
+                // Rebuild the DOM from the verified HTML
+                location.reload();
+            },
+            args: [response.htmlContent]
+        });
         showStatus('✅ Signature verified successfully!', 'success', 
           `Domain: ${response.domain}<br>Public key found in DNS`);
       } else {
